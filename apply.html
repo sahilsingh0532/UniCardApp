@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for ID Card - Tech University Xerox Center</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.1)" points="0,1000 1000,0 1000,1000"/></svg>');
+        }
+
+        .form-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .form-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .form-body {
+            padding: 3rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group label.required::after {
+            content: ' *';
+            color: #e74c3c;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-control:valid {
+            border-color: #27ae60;
+        }
+
+        .form-control:invalid:not(:focus):not(:placeholder-shown) {
+            border-color: #e74c3c;
+        }
+
+        select.form-control {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            appearance: none;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .file-upload-label:hover {
+            background: #e3f2fd;
+            border-color: #2980b9;
+        }
+
+        .file-upload-label i {
+            font-size: 2rem;
+        }
+
+        .file-name {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #27ae60;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+            display: block;
+            margin: 2rem auto 0;
+            min-width: 200px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid #c3e6cb;
+            display: none;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .form-info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .form-info h3 {
+            color: #1976d2;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .form-info ul {
+            color: #424242;
+            padding-left: 1.2rem;
+        }
+
+        .form-info li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .form-body {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .form-header h1 {
+                font-size: 2rem;
+            }
+
+            .back-btn {
+                position: static;
+                display: inline-flex;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem 0;
+            }
+
+            .form-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .form-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .form-body {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bounce {
+            animation: bounce 0.6s ease-in-out;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container" data-aos="fade-up">
+            <div class="form-header">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Home
+                </a>
+                <h1><i class="fas fa-id-card"></i> Apply for ID Card</h1>
+                <p>Fill out the form below to apply for your student ID card</p>
+            </div>
+
+            <div class="form-body">
+                <div class="form-info" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-info-circle"></i> Important Information</h3>
+                    <ul>
+                        <li>Processing time: 24-48 hours</li>
+                        <li>ID card fee: ₹50 (pay during collection)</li>
+                        <li>Photo should be passport size (optional - we can take it for you)</li>
+                        <li>Collect your ID card from our center with payment</li>
+                    </ul>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <strong>Application Submitted Successfully!</strong>
+                    <p>Your ID card application has been received. You will receive a confirmation email shortly. Please
+                        visit our center within 48 hours to collect your ID card.</p>
+                </div>
+
+                <div class="loading" id="loadingDiv">
+                    <div class="spinner"></div>
+                    <p>Processing your application...</p>
+                </div>
+
+                <form id="idCardForm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName" class="required">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required
+                                placeholder="Enter your full name" minlength="2">
+                            <div class="error-message" id="fullNameError">Please enter a valid full name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rollNumber" class="required">Roll Number</label>
+                            <input type="text" id="rollNumber" name="rollNumber" class="form-control" required
+                                placeholder="e.g., CSE2023001" pattern="[A-Za-z0-9]+">
+                            <div class="error-message" id="rollNumberError">Please enter a valid roll number</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="year" class="required">Year</label>
+                            <select id="year" name="year" class="form-control" required>
+                                <option value="">Select Year</option>
+                                <option value="1st">1st Year</option>
+                                <option value="2nd">2nd Year</option>
+                                <option value="3rd">3rd Year</option>
+                                <option value="4th">4th Year</option>
+                            </select>
+                            <div class="error-message" id="yearError">Please select your year</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="branch" class="required">Branch</label>
+                            <select id="branch" name="branch" class="form-control" required>
+                                <option value="">Select Branch</option>
+                                <option value="CSE">Computer Science Engineering</option>
+                                <option value="ECE">Electronics & Communication Engineering</option>
+                                <option value="EEE">Electrical & Electronics Engineering</option>
+                                <option value="Mechanical">Mechanical Engineering</option>
+                                <option value="Civil">Civil Engineering</option>
+                                <option value="Chemical">Chemical Engineering</option>
+                                <option value="IT">Information Technology</option>
+                                <option value="Automobile">Automobile Engineering</option>
+                                <option value="Aerospace">Aerospace Engineering</option>
+                                <option value="Biotechnology">Biotechnology</option>
+                            </select>
+                            <div class="error-message" id="branchError">Please select your branch</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="required">Email ID</label>
+                            <input type="email" id="email" name="email" class="form-control" required
+                                placeholder="student@example.com">
+                            <div class="error-message" id="emailError">Please enter a valid email address</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="required">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required
+                                placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10">
+                            <div class="error-message" id="phoneError">Please enter a valid 10-digit phone number</div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="photo">Upload Photo (Optional)</label>
+                            <div class="file-upload">
+                                <input type="file" id="photo" name="photo" accept="image/*">
+                                <label for="photo" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Click to upload passport size photo</span>
+                                </label>
+                                <div class="file-name" id="fileName"></div>
+                            </div>
+                            <small style="color: #666; font-size: 0.8rem;">
+                                Accepted formats: JPG, PNG, GIF (Max size: 2MB). If not uploaded, we'll take your photo
+                                at the center.
+                            </small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Application
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Form elements
+        const form = document.getElementById('idCardForm');
+        const submitBtn = document.querySelector('.submit-btn');
+        const loadingDiv = document.getElementById('loadingDiv');
+        const successMessage = document.getElementById('successMessage');
+        const fileInput = document.getElementById('photo');
+        const fileName = document.getElementById('fileName');
+
+        // File upload handling
+        fileInput.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) { // 2MB limit
+                    alert('File size should be less than 2MB');
+                    fileInput.value = '';
+                    fileName.textContent = '';
+                    return;
+                }
+                fileName.textContent = `Selected: ${file.name}`;
+                fileName.style.display = 'block';
+            } else {
+                fileName.textContent = '';
+                fileName.style.display = 'none';
+            }
+        });
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            input.addEventListener('blur', validateField);
+            input.addEventListener('input', clearError);
+        });
+
+        function validateField(e) {
+            const field = e.target;
+            const fieldName = field.name;
+            const value = field.value.trim();
+            let isValid = true;
+
+            // Clear previous error
+            const errorElement = document.getElementById(fieldName + 'Error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+
+            // Validation logic
+            switch (fieldName) {
+                case 'fullName':
+                    if (value.length < 2) {
+                        showError(fieldName, 'Name must be at least 2 characters long');
+                        isValid = false;
+                    }
+                    break;
+                case 'rollNumber':
+                    if (!/^[A-Za-z0-9]+$/.test(value)) {
+                        showError(fieldName, 'Roll number should contain only letters and numbers');
+                        isValid = false;
+                    }
+                    break;
+                case 'email':
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        showError(fieldName, 'Please enter a valid email address');
+                        isValid = false;
+                    }
+                    break;
+                case 'phone':
+                    if (!/^[0-9]{10}$/.test(value)) {
+                        showError(fieldName, 'Please enter a valid 10-digit phone number');
+                        isValid = false;
+                    }
+                    break;
+            }
+
+            if (isValid) {
+                field.style.borderColor = '#27ae60';
+            } else {
+                field.style.borderColor = '#e74c3c';
+            }
+        }
+
+        function showError(fieldName, message) {
+            const errorElement = document.getElementById(fieldName + 'Error');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        function clearError(e) {
+            const field = e.target;
+            const fieldName = field.name;
+            const errorElement = document.getElementById(fieldName + 'Error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+            field.style.borderColor = '#e9ecef';
+        }
+
+        // Form submission
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Validate all fields
+            let isFormValid = true;
+            inputs.forEach(input => {
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    showError(input.name, 'This field is required');
+                    input.style.borderColor = '#e74c3c';
+                    isFormValid = false;
+                } else {
+                    // Trigger validation
+                    const event = new Event('blur');
+                    input.dispatchEvent(event);
+                }
+            });
+
+            if (!isFormValid) {
+                // Scroll to first error
+                const firstError = document.querySelector('.error-message[style*="block"]');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+            form.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            // Prepare form data
+            const formData = new FormData(form);
+
+            // Create data object for API
+            const applicationData = {
+                fullName: formData.get('fullName'),
+                rollNumber: formData.get('rollNumber'),
+                year: formData.get('year'),
+                branch: formData.get('branch'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                submissionDate: new Date().toISOString(),
+                applicationId: 'APP' + Date.now()
+            };
+
+            try {
+                // In a real application, you would send this to your backend API
+                // For demo purposes, we'll simulate the submission
+                await simulateAPICall(applicationData);
+
+                // Show success message
+                loadingDiv.style.display = 'none';
+                successMessage.style.display = 'block';
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+
+                // Add success animation
+                successMessage.classList.add('bounce');
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error submitting your application. Please try again.');
+
+                // Reset form state
+                loadingDiv.style.display = 'none';
+                form.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+            }
+        });
+
+        async function simulateAPICall(data) {
+            const res = await fetch("http://localhost:5000/api/submit-id-application", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!res.ok) {
+                throw new Error("Failed to submit application");
+            }
+
+            const result = await res.json();
+            console.log("Server response:", result);
+            return result;
+        }
+
+
+        // Add some interactive effects
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+
+        // Smooth form reveal
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.form-group').forEach((group, index) => {
+                setTimeout(() => {
+                    group.classList.add('fade-in');
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+
+</html>

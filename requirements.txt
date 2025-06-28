@@ -1,0 +1,21 @@
+Flask==2.3.3
+Flask-CORS==4.0.0
+pandas==2.1.1
+openpyxl==3.1.2
+Werkzeug==2.3.7
+email-validator==2.0.0
+python-dotenv==1.0.0
+
+# Optional: For enhanced email functionality
+yagmail==0.15.293
+keyring==24.2.0
+
+# Optional: For PDF generation (bonus feature)
+reportlab==4.0.4
+fpdf2==2.7.5
+
+# Optional: For image processing
+Pillow==10.0.1
+
+# Optional: For better Excel formatting
+xlsxwriter==3.1.9
