@@ -30,8 +30,8 @@ os.makedirs(EXCEL_FOLDER, exist_ok=True)
 EMAIL_CONFIG = {
     'smtp_server': 'smtp.gmail.com',
     'smtp_port': 587,
-    'email': 'btdsahil7@gmail.com',  # Replace with your email
-    'password': 'lvjlzyanbaegslto',   # Replace with your app password
+    'email': os.getenv('EMAIL'),
+    'password': os.getenv('EMAIL_PASSWORD'),
     'recipient': 'sahilsingh0532@gmail.com'
 }
 
